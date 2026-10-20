@@ -1,0 +1,32 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and run integration tests
+        run: |
+          docker compose --profile test build api tests minio
+          docker compose --profile test run --rm tests
+      - name: Logs on failure
+        if: failure()
+        run: docker compose --profile test logs --tail=100
+      - name: Stop services
+        if: always()
+        run: docker compose --profile test down
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      - run: npm run typecheck

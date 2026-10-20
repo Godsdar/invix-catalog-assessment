@@ -1,0 +1,10 @@
+:root { color-scheme: light dark; font-family: system-ui, sans-serif; }
+body { margin: 0; color: var(--tg-theme-text-color, #222); background: var(--tg-theme-bg-color, #fff); }
+main { max-width: 960px; margin: auto; padding: 24px 16px; }
+h1 { font-size: 2rem; } h2 { font-size: 1.1rem; overflow-wrap: anywhere; }
+a { color: var(--tg-theme-link-color, #185bba); }
+.products { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 24px; }
+.products img { display: block; max-width: 100%; object-fit: contain; height: 210px; }
+nav { display: flex; gap: 24px; margin-top: 24px; }
+button { font: inherit; padding: 8px 16px; cursor: pointer; }
+:focus-visible { outline: 3px solid #185bba; outline-offset: 4px; }
