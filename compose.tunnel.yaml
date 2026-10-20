@@ -1,0 +1,24 @@
+# Temporary local demo. Nothing here resumes automatically after a host restart.
+services:
+  postgres:
+    restart: "no"
+  minio:
+    restart: "no"
+  api:
+    restart: "no"
+  bot:
+    restart: "no"
+  worker:
+    restart: "no"
+  frontend:
+    restart: "no"
+  gateway:
+    restart: "no"
+  tunnel:
+    image: cloudflare/cloudflared@sha256:a15a3b50b8dabd57ac2090e9484c0247dba9dfa1f0df4d298d4317f9d69eb2d5
+    command: tunnel --no-autoupdate --protocol http2 --url http://gateway:8080
+    depends_on: [gateway]
+    restart: "no"
+    read_only: true
+    tmpfs: ["/tmp"]
+    security_opt: ["no-new-privileges:true"]
